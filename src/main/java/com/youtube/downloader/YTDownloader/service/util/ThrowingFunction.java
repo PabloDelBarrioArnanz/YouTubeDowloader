@@ -4,6 +4,7 @@ package com.youtube.downloader.YTDownloader.service.util;
 import java.util.function.Function;
 
 public interface ThrowingFunction<T, R, E extends Throwable> {
+
   static <T, R, E extends Throwable> Function<T, R> unchecked(ThrowingFunction<T, R, E> f) {
     return t -> {
       try {

@@ -20,7 +20,7 @@ public enum FormatSelector {
     this.getFormat = getFormat;
   }
 
-  public static Function<YoutubeVideo, Format> getFormat(String format) {
+  public static Function<YoutubeVideo, Format> getExtractorFormatFunction(String format) {
     return Stream.of(FormatSelector.values())
       .filter(formatType -> formatType.format.equals(format))
       .findAny()

@@ -51,7 +51,7 @@ public class DownloaderService {
     return Optional.of(ytVideo)
       .map(vid -> getExtractorFormatFunction(selectFormat))
       .map(formatExtractor -> formatExtractor.apply(ytVideo))
-      .map(unchecked(format -> ytVideo.download(format, new File(downloadPath.concat(System.nanoTime() + "/")))))
+      .map(unchecked(format -> ytVideo.download(format, new File(downloadPath))))
       .orElseThrow(RuntimeException::new);
   }
 }

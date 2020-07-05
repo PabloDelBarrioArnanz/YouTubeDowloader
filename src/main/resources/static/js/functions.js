@@ -17,29 +17,34 @@ function addNewURL() {
 }
 
 function downloadList() {
+    var body = "[";
     var table = document.getElementById("table");
     for (var i = 0; i < table.rows.length; i++) {
         var row = table.rows[i].getElementsByTagName("td");
-        console.log(row);
-        console.log(row.item(0).textContent);
-        fetch('/download/', {
-            body: JSON.stringify({"url": row.item(0).textContent.trim(), "format": row.item(1).textContent.trim()}),
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8'
-            },
-        })
-            .then(response => {
-                let data = response.blob();
-                const blob = new Blob([data], {type: "video\/mp4"});
-                const downloadUrl = URL.createObjectURL(blob);
-                const a = document.createElement("a");
-                a.href = downloadUrl;
-                a.download = response.headers.get('name').split('%20').join(' ');
-                document.body.appendChild(a);
-                a.click();
-            })
+        body += ("{" + row.item(0).textContent.trim() + ", " + row.item(1).textContent.trim() + "}")
+        if (i < table.rows.length - 1) {
+            body += ","
+        }
     }
+    body += "]";
+    console.log(body);
+    fetch('/download/', {
+        body: JSON.stringify(body),
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8'
+        },
+    })
+        .then(response => {
+            let data = response.blob();
+            const blob = new Blob([data], {type: "application/zip"});
+            const downloadUrl = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = downloadUrl;
+            a.download = response.headers.get('name');
+            document.body.appendChild(a);
+            a.click();
+        })
 }
 
 function emptyField() {

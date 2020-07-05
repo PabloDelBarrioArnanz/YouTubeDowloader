@@ -4,6 +4,8 @@ function addNewURL() {
     tr.className = 'table-bordered';
     var td_url = document.createElement("td");
     var td_format = document.createElement("td");
+    td_url.className = 'table-bordered';
+    td_format.className = 'table-bordered';
     var newURL = document.getElementById("newURL");
     var format = document.getElementById("format");
     td_url.appendChild(document.createTextNode(newURL.value));
@@ -16,9 +18,12 @@ function addNewURL() {
 
 function downloadList() {
     var table = document.getElementById("table");
-    for (var i = 0, row = table.rows[i].getElementsByTagName("td"); i < table.rows.length; i++) {
+    for (var i = 0; i < table.rows.length; i++) {
+        var row = table.rows[i].getElementsByTagName("td");
+        console.log(row);
+        console.log(row.item(0).textContent);
         fetch('/download/', {
-            body: JSON.stringify({"url": row.item(0).textContent, "format": row.item(1).textContent}),
+            body: JSON.stringify({"url": row.item(0).textContent.trim(), "format": row.item(1).textContent.trim()}),
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'

@@ -1,4 +1,4 @@
-package com.youtube.downloader.YTDownloader.service.util;
+package com.youtube.downloader.YTDownloader.util;
 
 
 import java.util.function.Function;

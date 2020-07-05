@@ -2,6 +2,7 @@ package com.youtube.downloader.YTDownloader;
 
 import com.youtube.downloader.YTDownloader.model.DownloadInfo;
 import com.youtube.downloader.YTDownloader.service.DownloaderService;
+import com.youtube.downloader.YTDownloader.util.Util;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
@@ -31,11 +32,11 @@ public class DownloadController {
 
   @PostMapping("/download")
   public ResponseEntity<Resource> download(@RequestBody DownloadInfo downloadInfo) {
-    log.info("" + downloadInfo);
     return Optional.of(downloadInfo)
       .map(downloaderService::download)
       .flatMap(resource -> Optional.of(resource)
-        .map(res -> prepareHeader(res.getFilename()))
+        .map(Resource::getFilename)
+        .map(Util::prepareHeader)
         .map(headers -> new ResponseEntity<>(resource, headers, HttpStatus.OK)))
       .orElseThrow(RuntimeException::new);
   }

@@ -26,7 +26,7 @@ public class Util {
 
   public static final String fileType = "application/zip";
   public static final String headerKey = "name";
-  private static final String downloadPath = "/home/rootroot/Downloads/ENJOY_IT";
+  private static final String downloadPath = "R:/Downloads/ENJOY_IT";
 
   public static Resource getFileAsResource(String filePath) {
     return Optional.of(filePath)

@@ -2,6 +2,7 @@ package com.youtube.downloader.YTDownloader.service;
 
 import com.github.kiulian.downloader.YoutubeDownloader;
 import com.github.kiulian.downloader.model.YoutubeVideo;
+import com.youtube.downloader.YTDownloader.model.DownloadInfo;
 import com.youtube.downloader.YTDownloader.model.VideoInfo;
 import com.youtube.downloader.YTDownloader.util.Util;
 import lombok.extern.slf4j.Slf4j;
@@ -26,8 +27,9 @@ public class DownloaderService {
   private static final String ID_EXTRACTOR = ".*v=";
   private static final String downloadPath = "/home/rootroot/Downloads/";
 
-  public Resource download(Set<VideoInfo> videoInfos) {
-    return videoInfos.parallelStream()
+  public Resource download(DownloadInfo downloadInfo) {
+    return downloadInfo.getVideoInfoList()
+      .parallelStream()
       .map(peek(video -> log.info(video.toString())))
       .map(videoInfo -> Optional.of(videoInfo)
         .map(this::searchVideo)

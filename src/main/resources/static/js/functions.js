@@ -17,16 +17,16 @@ function addNewURL() {
 }
 
 function downloadList() {
-    var body = "[";
+    var body = "{\"videoInfoList\": [";
     var table = document.getElementById("table");
     for (var i = 0; i < table.rows.length; i++) {
         var row = table.rows[i].getElementsByTagName("td");
-        body += ("{" + row.item(0).textContent.trim() + ", " + row.item(1).textContent.trim() + "}")
+        body += ("{\"url\": \"" + row.item(0).textContent.trim() + "\", \"format\": \"" + row.item(1).textContent.trim() + "\"}")
         if (i < table.rows.length - 1) {
             body += ","
         }
     }
-    body += "]";
+    body += "]}";
     console.log(body);
     fetch('/download/', {
         body: JSON.stringify(body),

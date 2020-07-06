@@ -1,5 +1,6 @@
 package com.youtube.downloader.YTDownloader;
 
+import com.youtube.downloader.YTDownloader.model.DownloadInfo;
 import com.youtube.downloader.YTDownloader.model.VideoInfo;
 import com.youtube.downloader.YTDownloader.service.DownloaderService;
 import com.youtube.downloader.YTDownloader.util.Util;
@@ -30,8 +31,8 @@ public class DownloadController {
   }
 
   @PostMapping("/download")
-  public ResponseEntity<Resource> download(@RequestBody Set<VideoInfo> videoInfoList) {
-    return Optional.of(videoInfoList)
+  public ResponseEntity<Resource> download(@RequestBody DownloadInfo downloadInfo) {
+    return Optional.of(downloadInfo)
       .map(downloaderService::download)
       .flatMap(resource -> Optional.of(resource)
         .map(Resource::getFilename)

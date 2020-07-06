@@ -4,16 +4,30 @@ function addNewURL() {
     tr.className = 'table-bordered';
     var td_url = document.createElement("td");
     var td_format = document.createElement("td");
+    var td_button = document.createElement("td");
+    td_button.className = 'table-bordered';
     td_url.className = 'table-bordered';
     td_format.className = 'table-bordered';
+    var button = document.createElement("button");
+    button.className = 'glyphicon-remove-circle';
+    button.addEventListener("click", function () {
+        removeURL(this);
+    });
     var newURL = document.getElementById("newURL");
     var format = document.getElementById("format");
     td_url.appendChild(document.createTextNode(newURL.value));
     td_format.appendChild(document.createTextNode(format.options[format.selectedIndex].value));
     tr.appendChild(td_url);
     tr.appendChild(td_format);
+    td_button.appendChild(button);
+    tr.appendChild(td_button);
     table.appendChild(tr);
     newURL.value = "";
+}
+
+function removeURL(row) {
+    var i = row.parentNode.parentNode.rowIndex;
+    document.getElementById("table").deleteRow(i);
 }
 
 function downloadList() {

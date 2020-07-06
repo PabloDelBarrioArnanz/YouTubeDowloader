@@ -1,7 +1,6 @@
 package com.youtube.downloader.YTDownloader;
 
 import com.youtube.downloader.YTDownloader.model.DownloadInfo;
-import com.youtube.downloader.YTDownloader.model.VideoInfo;
 import com.youtube.downloader.YTDownloader.service.DownloaderService;
 import com.youtube.downloader.YTDownloader.util.Util;
 import lombok.AllArgsConstructor;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Optional;
-import java.util.Set;
 
 
 @Slf4j

@@ -48,17 +48,16 @@ function downloadList() {
         headers: {
             'Content-Type': 'application/json; charset=utf-8'
         },
+    }).then((transfer) => {
+        return transfer.blob();
+    }).then((bytes) => {
+        let elm = document.createElement('a');
+        elm.href = URL.createObjectURL(bytes);
+        elm.setAttribute('download', 'ENJOY.zip');
+        elm.click()
+    }).catch((error) => {
+        console.log(error);
     })
-        .then(response => {
-            let data = response.blob();
-            const blob = new Blob([data], {type: "application/zip"});
-            const downloadUrl = URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            a.href = downloadUrl;
-            a.download = response.headers.get('name');
-            document.body.appendChild(a);
-            a.click();
-        })
 }
 
 function emptyField() {

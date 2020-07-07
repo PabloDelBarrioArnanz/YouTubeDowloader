@@ -9,8 +9,7 @@ import java.util.stream.Stream;
 public enum FormatSelector {
 
   AUDIO("AUDIO", youtubeVideo -> youtubeVideo.audioFormats().get(0)),
-  VIDEO("VIDEO", youtubeVideo -> youtubeVideo.videoFormats().get(0)),
-  AUDIO_VIDEO("AUDIO_VIDEO", youtubeVideo -> youtubeVideo.videoWithAudioFormats().get(0));
+  VIDEO("VIDEO", youtubeVideo -> youtubeVideo.videoFormats().get(0));
 
   Function<YoutubeVideo, Format> getFormat;
   private String format;

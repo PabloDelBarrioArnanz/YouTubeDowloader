@@ -2,15 +2,15 @@ package com.youtube.downloader.YTDownloader.service;
 
 import com.github.kiulian.downloader.YoutubeDownloader;
 import com.github.kiulian.downloader.model.YoutubeVideo;
-import com.youtube.downloader.YTDownloader.model.DownloadInfo;
+import com.vaadin.flow.server.StreamResource;
 import com.youtube.downloader.YTDownloader.model.VideoInfo;
 import com.youtube.downloader.YTDownloader.util.Util;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
@@ -24,10 +24,10 @@ import static com.youtube.downloader.YTDownloader.util.ThrowingFunction.unchecke
 public class DownloaderService {
 
   private static final String ID_EXTRACTOR = ".*v=";
-  private static final String downloadPath = "R:/Downloads/";
+  private static final String downloadPath = "C:/Downloads/";
 
-  public Resource download(DownloadInfo downloadInfo) {
-    return downloadInfo.getVideoInfoList()
+  public StreamResource download(List<VideoInfo> videoInfoList) {
+    return videoInfoList
       .parallelStream()
       .map(peek(video -> log.info(video.toString())))
       .map(videoInfo -> Optional.of(videoInfo)
@@ -46,7 +46,7 @@ public class DownloaderService {
       .orElseThrow(RuntimeException::new);
   }
 
-  public final UnaryOperator<String> extractIdFromURL = url -> url.replaceAll(ID_EXTRACTOR, Strings.EMPTY);
+  private final UnaryOperator<String> extractIdFromURL = url -> url.replaceAll(ID_EXTRACTOR, Strings.EMPTY);
 
   private File download(YoutubeVideo ytVideo, String selectFormat) {
     return Optional.of(ytVideo)

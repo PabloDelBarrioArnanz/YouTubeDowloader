@@ -29,3 +29,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Vaadin ###
+/node_modules
+/config
+webpack.config.js
+webpack.generated.js

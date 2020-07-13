@@ -1,11 +1,12 @@
 package com.youtube.downloader.YTDownloader.util;
 
-import org.apache.logging.log4j.util.Strings;
+import com.vaadin.flow.server.StreamResource;
+import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.nio.file.Files;
@@ -26,25 +27,24 @@ public class Util {
 
   public static final String fileType = "application/zip";
   public static final String headerKey = "name";
-  private static final String downloadPath = "R:/Downloads/ENJOY_IT";
+  private static final String downloadPath = "C:/Downloads/ENJOY_IT";
 
-  public static Resource getFileAsResource(String filePath) {
+  public static StreamResource getFileAsResource(String filePath) {
     return Optional.of(filePath)
       .map(Paths::get)
       .map(Path::toUri)
       .map(unchecked(UrlResource::new))
       .filter(resource -> resource.exists() && resource.isReadable())
+      .map(file -> new StreamResource("ENJOY_IT.zip", () ->
+        Optional.of(file)
+          .map(unchecked(Resource::getURI))
+          .map(unchecked(IOUtils::toByteArray))
+          .map(ByteArrayInputStream::new)
+          .orElseThrow(RuntimeException::new)))
       .orElseThrow(RuntimeException::new);
   }
 
-  public static HttpHeaders prepareHeader(String fileName) {
-    HttpHeaders headers = new HttpHeaders();
-    headers.add(HttpHeaders.CONTENT_TYPE, fileType);
-    headers.add(headerKey, fileName.replaceAll("\\d[0-9]*", Strings.EMPTY));
-    return headers;
-  }
-
-  public static Resource zipVideos(Set<File> videos) {
+  public static StreamResource zipVideos(Set<File> videos) {
     String zipName = zipNameGenerator.get();
     return Optional.of(zipName)
       .map(unchecked(FileOutputStream::new))

@@ -15,9 +15,9 @@ import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.dom.Element;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.PWA;
 import com.youtube.downloader.YTDownloader.model.VideoInfo;
 import com.youtube.downloader.YTDownloader.service.DownloaderService;
-import lombok.AllArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
 import org.apache.logging.log4j.util.Supplier;
 
@@ -28,12 +28,12 @@ import java.util.Optional;
 
 @Route("")
 @PageTitle("Youtube Downloader")
-@AllArgsConstructor
+@PWA(name = "Youtube Downloader",
+  shortName = "YTD",
+  iconPath = "resources/static/logo.png")
 public class DownloaderController extends VerticalLayout {
 
-  private DownloaderService downloaderService;
-
-  public DownloaderController() {
+  public DownloaderController(DownloaderService downloaderService) {
     HorizontalLayout horizontalLayout = new HorizontalLayout();
     HorizontalLayout horizontalLayout2 = new HorizontalLayout();
     VerticalLayout verticalLayout = new VerticalLayout();

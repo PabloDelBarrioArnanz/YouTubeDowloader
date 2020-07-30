@@ -8,6 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class VideoInfo {
+
   private String url;
   private String format;
 }

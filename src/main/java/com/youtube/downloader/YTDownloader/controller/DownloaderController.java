@@ -17,20 +17,20 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.youtube.downloader.YTDownloader.model.VideoInfo;
 import com.youtube.downloader.YTDownloader.service.DownloaderService;
+import lombok.AllArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
 import org.apache.logging.log4j.util.Supplier;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-@Route("download")
+@Route("")
 @PageTitle("Youtube Downloader")
+@AllArgsConstructor
 public class DownloaderController extends VerticalLayout {
 
-  @Autowired
   private DownloaderService downloaderService;
 
   public DownloaderController() {

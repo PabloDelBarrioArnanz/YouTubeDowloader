@@ -9,5 +9,4 @@ public class YtDownloaderApplication {
   public static void main(String[] args) {
     SpringApplication.run(YtDownloaderApplication.class, args);
   }
-
 }

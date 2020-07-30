@@ -24,7 +24,7 @@ import static com.youtube.downloader.YTDownloader.util.ThrowingFunction.unchecke
 public class DownloaderService {
 
   private static final String ID_EXTRACTOR = ".*v=";
-  private static final String downloadPath = "C:/Downloads/";
+  private static final String downloadPath = "R:/Downloads/";
 
   public StreamResource download(List<VideoInfo> videoInfoList) {
     return videoInfoList

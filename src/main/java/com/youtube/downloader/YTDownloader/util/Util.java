@@ -25,9 +25,7 @@ import static com.youtube.downloader.YTDownloader.util.ThrowingFunction.unchecke
 @Component
 public class Util {
 
-  public static final String fileType = "application/zip";
-  public static final String headerKey = "name";
-  private static final String downloadPath = "C:/Downloads/ENJOY_IT";
+  private static final String downloadPath = "R:/Downloads/ENJOY_IT";
 
   public static StreamResource getFileAsResource(String filePath) {
     return Optional.of(filePath)
